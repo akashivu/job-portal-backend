@@ -64,7 +64,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000","https://job-portal-backend-d5ea.onrender.com"));
+        config.setAllowedOrigins(List.of("http://localhost:3000","https://phenomenal-cranachan-bf0a25.netlify.app/login"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
