@@ -1,14 +1,13 @@
-# Use Eclipse Temurin JDK base image
-FROM eclipse-temurin:17
-
-# Set working directory
+# Build stage
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy jar file from target directory (after mvn build)
-COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose the port your app runs on
+# Runtime stage
+FROM openjdk:17
+WORKDIR /app
+COPY --from=build /app/target/JOB_PORTAL-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar"]
