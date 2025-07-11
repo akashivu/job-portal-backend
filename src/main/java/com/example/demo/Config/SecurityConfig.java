@@ -37,12 +37,17 @@ public class SecurityConfig {
     .csrf(csrf -> csrf.disable()).headers(headers->headers.frameOptions(frame-> frame.disable()))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/auth/registeruser", "/auth/login","/h2-console/**").permitAll()
+                        .requestMatchers("/auth/registeruser", "/auth/login", "/h2-console/**").permitAll()
 
-                        .requestMatchers(HttpMethod.GET, "/api/jobs").hasAnyRole("SEEKER", "RECRUITER")
-                        .requestMatchers(HttpMethod.POST, "/api/jobs").hasRole("RECRUITER")
+
                         .requestMatchers(HttpMethod.GET, "/api/jobs").permitAll()
+
+
+                        .requestMatchers(HttpMethod.POST, "/api/jobs").hasRole("RECRUITER")
+
                         .anyRequest().authenticated()
+
+
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
