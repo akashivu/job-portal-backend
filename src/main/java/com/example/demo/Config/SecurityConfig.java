@@ -41,6 +41,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/api/jobs").hasAnyRole("SEEKER", "RECRUITER")
                         .requestMatchers(HttpMethod.POST, "/api/jobs").hasRole("RECRUITER")
+                        .requestMatchers(HttpMethod.GET, "/api/jobs").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) .cors(cors -> cors.configurationSource(corsConfigurationSource()))
